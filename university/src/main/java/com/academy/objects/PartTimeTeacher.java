@@ -1,10 +1,17 @@
 package com.academy.objects;
 
-public class PartTimeTeacher extends Teacher{
+public class PartTimeTeacher extends Teacher {
 
-    private double hoursPerWeek;
+    private int hoursPerWeek;
+
+    public PartTimeTeacher(double baseSalary, int hoursPerWeek) {
+        this.hoursPerWeek = hoursPerWeek;
+        super.setBaseSalary(baseSalary);
+        super.setSalary(calculateSalary());
+    }
+
     @Override
     public double calculateSalary() {
-        return 0;
+        return super.getBaseSalary() * hoursPerWeek;
     }
 }

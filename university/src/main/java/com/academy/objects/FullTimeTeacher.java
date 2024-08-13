@@ -2,10 +2,19 @@ package com.academy.objects;
 
 public class FullTimeTeacher extends Teacher {
 
-    private double yearsOfExperience;
+    private int yearsOfExperience;
+
+    public FullTimeTeacher(double baseSalary, int yearsOfExperience ){
+
+        this.yearsOfExperience = yearsOfExperience;
+        super.setBaseSalary(baseSalary);
+        super.setSalary(this.calculateSalary());
+
+    }
 
     @Override
     public double calculateSalary() {
-        return 0;
+        return super.getBaseSalary() + (yearsOfExperience * 1.10);
     }
+
 }
