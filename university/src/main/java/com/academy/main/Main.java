@@ -6,6 +6,7 @@ import com.academy.objects.Teacher;
 import com.academy.objects.University;
 import com.academy.objects.UniversityClass;
 
+import javax.swing.*;
 import java.util.*;
 
 
@@ -187,7 +188,7 @@ public class Main {
 
     public static void createNewSClas(Scanner scanner, University university) {
         String className = getValidClassName(scanner);
-        String classroom = getValidClassroom(scanner);
+        String classroom = getClassroomName(scanner);
         showAvailableTeachers(university);
         System.out.println("Enter teacher's name:");
         String teacherName = getValidTeacherName(scanner);
@@ -202,30 +203,27 @@ public class Main {
 
             showCurrentStudents(university);
 
-            System.out.println("Enter the ID number to add the student, press Enter after each ID:");
-            System.out.println("Enter 'Q', when you finish");
-
-
             do {
+                System.out.println("Enter the ID number to add a student, then press Enter or write 'exit' to finish.");
                 option = scanner.nextLine();
-                if (!option.equalsIgnoreCase("Q")) {
+                if (!option.equalsIgnoreCase("exit")) {
                     try {
                         int studentId = Integer.parseInt(option);
                         Student student = findStudentById(university.getStudents(), studentId);
-                        if (student != null) {
+                        if (student != null && !isStudentIdInList(studentsToEnter, student.getId())) {
                             studentsToEnter.add(student);
-                            System.out.println(student.getName() + "has been added.");
+                            System.out.println(student.getName() + " has been added.");
 
                         } else {
-                            System.out.println("No student found with ID: " + studentId);
+                            System.out.println("The ID must be an ID from the student list and must not be repeated.");
                         }
 
-                    } catch (NullPointerException e) {
-                        System.out.println("Invalid input. Please enter a valid ID or 'Q' to quit.");
+                    } catch (NullPointerException | NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a valid ID or 'exit' to quit.");
                     }
                 }
 
-            } while (!option.equalsIgnoreCase("q"));
+            } while (!option.equalsIgnoreCase("exit"));
 
             for (Student student : studentsToEnter) {
                 uClass.addStudent(student);
@@ -241,6 +239,15 @@ public class Main {
             System.out.println("No teacher matches that name.");
         }
 
+    }
+
+    private static boolean isStudentIdInList(List<Student> studentList, int id) {
+        for (Student s : studentList) {
+            if (s.getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static Teacher getTeacherByName(List<Teacher> teachers, String name) {
@@ -265,23 +272,16 @@ public class Main {
         }
     }
 
-    public static String getValidClassroom(Scanner scanner) {
+    public static String getClassroomName(Scanner scanner) {
         String classroom;
-        while (true) {
-            System.out.println("Enter the classroom name:");
-            classroom = scanner.nextLine();
-            if (validateNameFormat(classroom)) {
-                return classroom;
-            } else {
-                System.out.println("Invalid classroom name.");
-            }
-        }
+        System.out.println("Enter the classroom name:");
+        classroom = scanner.nextLine();
+        return classroom;
     }
 
     public static String getValidTeacherName(Scanner scanner) {
         String teacherName;
         while (true) {
-            System.out.println("Enter the teacher's name:");
             teacherName = scanner.nextLine();
             if (validateNameFormat(teacherName)) {
                 return teacherName;
