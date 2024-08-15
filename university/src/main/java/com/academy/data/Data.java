@@ -20,6 +20,8 @@ public class Data {
         university.getStudents().add(new Student("Charles Darwin ", 19));
         university.getStudents().add(new Student("Carlos Sanchez", 17));
         university.getStudents().add(new Student("Brahyam Aldana", 24));
+        university.getStudents().add(new Student("Salome Patiño", 29));
+        university.getStudents().add(new Student("Jose Bolivar", 23));
 
         UniversityClass math = new UniversityClass("Math", "A101", university.getTeachers().getFirst());
         UniversityClass internetOfThings = new UniversityClass("IOT Internet of Things", "A102", university.getTeachers().get(1));
