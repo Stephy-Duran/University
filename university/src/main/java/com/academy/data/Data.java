@@ -3,7 +3,12 @@ package com.academy.data;
 import com.academy.objects.*;
 
 public class Data {
-
+    
+    /**
+     * This method initializes the base information.
+     *
+     * @author: Stephany Duran
+     */
     public static void initializeData(University university) {
 
         university.getTeachers().add(new FullTimeTeacher("Omar Benitez", 1000, 3));
